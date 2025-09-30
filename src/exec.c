@@ -12,6 +12,10 @@
 
 #include "minishell.h"
 
+/*Static helper function that exists only so that
+execute_pipeline can pass the last piped pid index
+to wait_children, resolving our last few failing
+signal tests*/
 static int	find_last_index(t_dat *d, char ***cmd)
 {
 	int	i;
@@ -26,6 +30,10 @@ static int	find_last_index(t_dat *d, char ***cmd)
 	return (-1);
 }
 
+/*This function was modified to pass the last pid
+index and pass it to wait_children, allowing for more
+accurate pid tracking, allowing us to pass the last
+few tests (which were failing at random intervals)*/
 void	ft_execute_pipeline(t_dat *d, char ***cmd)
 {
 	int		**fd;

@@ -88,33 +88,37 @@ void	ft_nested_child(t_dat *d, char **cmd, char *cmd_path, int s_stdin)
 	exit(1);
 }
 
+/*Else if condition now ensures that last_exit code will only
+be updated if it was genuinely the last command executed.
+The temp last_exit_code variable was also removed because signals
+were simply never following that logic and it only randomly held
+the true last on occasion. It was incapable of dealing with
+their asynchronous nature */
 void	ft_wait_children(pid_t *pids, int tot, int last_index)
 {
-	int	status;
-	int	i;
-	int	signal_num;
-	int	last_exit_code;
+	int		status;
+	int		i;
+	int		signal_num;
+	pid_t	waited;
 
-	(void)pids;
-	last_index++;
-	last_exit_code = 0;
 	i = 0;
 	while (i < tot)
 	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(-1, &status, 0);
+		(signal(SIGINT, SIG_IGN), waited = waitpid(-1, &status, 0));
 		if (WIFSIGNALED(status))
 		{
 			signal_num = WTERMSIG(status);
 			if (signal_num == SIGQUIT)
-				(printf("quit: core dumped\n"), last_exit_code = 131);
+				(printf("quit: core dumped\n"), g_last_exit_status = 131);
 			else if (signal_num == SIGINT)
-				(write(1, "\n", 1), last_exit_code = 130);
+				(write(1, "\n", 1), g_last_exit_status = 130);
 		}
 		else if (WIFEXITED(status))
-			last_exit_code = WEXITSTATUS(status);
+		{
+			if (waited == pids[last_index])
+				g_last_exit_status = WEXITSTATUS(status);
+		}
 		i++;
 	}
 	ft_set_main_signals();
-	g_last_exit_status = last_exit_code;
 }
