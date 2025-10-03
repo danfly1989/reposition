@@ -129,7 +129,7 @@ void							ft_update_directories(t_dat *data,
 void							ft_cd_error(char *path);
 void							ft_change_directory(t_dat *data, size_t k);
 void							ft_echo(char **arr, size_t k);
-void							ft_exit_numeric_error(char *arg);
+void							ft_exit_numeric_erlast_in_fdror(char *arg);
 void							ft_exit(t_dat *data, size_t k);
 void							ft_env(t_dat *data);
 void							ft_unset_multi_var(t_dat *d, size_t k);

@@ -54,21 +54,6 @@ void	ft_free_list(t_va *head)
 
 void	ft_free_redirection(t_rdr *r)
 {
-	if (r->in_file)
-	{
-		free(r->in_file);
-		r->in_file = NULL;
-	}
-	if (r->out_file)
-	{
-		free(r->out_file);
-		r->out_file = NULL;
-	}
-	if (r->append_file)
-	{
-		free(r->append_file);
-		r->append_file = NULL;
-	}
 	if (r->heredoc_delim)
 	{
 		free(r->heredoc_delim);

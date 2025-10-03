@@ -24,7 +24,7 @@ static char	*ft_resolve_cd_path(t_dat *data, size_t k, int *should_free_path)
 		path = ft_get_val_from_list(data->ev, "HOME");
 		if (path == NULL)
 		{
-			write(2, "cd: HOME not set\n", 17);
+			write(2, "cd: HOME not set\n", 18);
 			g_last_exit_status = 1;
 			return (NULL);
 		}
