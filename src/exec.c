@@ -114,15 +114,15 @@ void	ft_external_functions(t_dat *data, char *line)
 		return ;
 	if (!ft_validate_syntax(data->xln))
 		return ;
-	ft_list_to_env_array(data);
+	if (ft_all_valid_lvar(data, data->xln))
+		ft_update_local_variables(data);
 	data->no_pipes = ft_count_pipes(data->xln);
 	if (!data->no_pipes && !ft_count_redirections(data->xln))
 	{
-		if (ft_all_valid_lvar(data, data->xln))
-			ft_update_local_variables(data);
 		if (ft_handle_builtin(data, data->st))
 			return ;
 	}
+	ft_list_to_env_array(data);
 	cmd = ft_parse_cmd(data, 0, 0, 0);
 	if (!cmd)
 		return ;
