@@ -90,7 +90,7 @@ int	ft_apply_redirections(t_rdr *r, char **tokens)
 
 	last_in_fd = -1;
 	last_out_fd = -1;
-	if (!handle_heredoc_redirect(r->heredoc_delim))
+	if (!handle_heredoc_redirect(r->hd_delim))
 		return (0);
 	if (!process_redirection_tokens(tokens, &last_in_fd, &last_out_fd))
 		return (0);

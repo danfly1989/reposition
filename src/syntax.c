@@ -43,7 +43,9 @@ int	ft_validate_syntax(char **tokens)
 
 	if (!tokens || !tokens[0])
 		return (1);
-	if (ft_is_redirection(tokens[0]) && ft_strcmp(tokens[0], "<<"))
+	if (ft_is_redirection(tokens[0]) && ft_strcmp(tokens[0], "<<")
+		&& ft_strcmp(tokens[0], "<") && ft_strcmp(tokens[0], ">")
+		&& ft_strcmp(tokens[0], ">>"))
 		return (ft_syntax_error_msg(tokens[0]));
 	i = 0;
 	while (tokens[i])
@@ -65,23 +67,7 @@ int	ft_validate_syntax(char **tokens)
 
 int	ft_syntax_error_msg(char *token)
 {
-	char	*prefix;
-	char	*newline;
-
-	prefix = "minishell: syntax error near unexpected token `";
-	newline = "'\n";
-	if (token)
-	{
-		write(2, prefix, ft_strlen(prefix));
-		write(2, token, ft_strlen(token));
-		write(2, newline, 2);
-	}
-	else
-	{
-		write(2, prefix, ft_strlen(prefix));
-		write(2, "newline", 7);
-		write(2, newline, 2);
-	}
+	(void)token;
 	g_last_exit_status = 2;
-	return (2);
+	return (0);
 }

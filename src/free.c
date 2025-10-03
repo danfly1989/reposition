@@ -54,10 +54,10 @@ void	ft_free_list(t_va *head)
 
 void	ft_free_redirection(t_rdr *r)
 {
-	if (r->heredoc_delim)
+	if (r->hd_delim)
 	{
-		free(r->heredoc_delim);
-		r->heredoc_delim = NULL;
+		free(r->hd_delim);
+		r->hd_delim = NULL;
 	}
 }
 

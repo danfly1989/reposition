@@ -62,8 +62,9 @@ typedef struct s_redirections
 {
 	char						*in_file;
 	char						*out_file;
-	char						*append_file;
-	char						*heredoc_delim;
+	char						*app_file;
+	char						*hd_delim;
+	size_t						i;
 }								t_rdr;
 
 void							ft_free_string_array(char **str_array);

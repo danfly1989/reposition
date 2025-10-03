@@ -58,21 +58,29 @@ char	***ft_parse_cmd(t_dat *d, int st, int i, int idx)
 
 int	ft_parse_redirection(char **tokens, t_rdr *r)
 {
-	int	i;
-
-	i = 0;
+	r->i = 0;
 	ft_memset(r, 0, sizeof(*r));
-	while (tokens[i])
+	while (tokens[r->i])
 	{
-		if (!ft_strcmp(tokens[i], "<") && tokens[i + 1])
-			r->in_file = ft_strdup(tokens[++i]);
-		else if (!ft_strcmp(tokens[i], ">") && tokens[i + 1])
-			r->out_file = ft_strdup(tokens[++i]);
-		else if (!ft_strcmp(tokens[i], ">>") && tokens[i + 1])
-			r->append_file = ft_strdup(tokens[++i]);
-		else if (!ft_strcmp(tokens[i], "<<") && tokens[i + 1])
-			r->heredoc_delim = ft_strdup(tokens[++i]);
-		i++;
+		if (!ft_strcmp(tokens[r->i], "<") && tokens[r->i + 1])
+		{
+			if (r->in_file)
+				(free(r->in_file), r->in_file = ft_strdup(tokens[++r->i]));
+		}
+		else if (!ft_strcmp(tokens[r->i], ">") && tokens[r->i + 1])
+		{
+			if (r->out_file)
+				(free(r->out_file), r->out_file = ft_strdup(tokens[++r->i]));
+		}
+		else if (!ft_strcmp(tokens[r->i], ">>") && tokens[r->i + 1])
+		{
+			if (r->app_file)
+				(free(r->app_file), r->app_file = ft_strdup(tokens[++r->i]));
+		}
+		else if (!ft_strcmp(tokens[r->i], "<<") && tokens[r->i + 1])
+			if (r->hd_delim)
+				(free(r->hd_delim), r->hd_delim = ft_strdup(tokens[++r->i]));
+		r->i++;
 	}
 	return (1);
 }
