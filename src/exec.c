@@ -115,7 +115,7 @@ void	ft_external_functions(t_dat *data, char *line)
 	if (!ft_validate_syntax(data->xln))
 		return ;
 	if (ft_all_valid_lvar(data, data->xln))
-		ft_update_local_variables(data);
+		return (ft_update_local_variables(data), ((void)0));
 	data->no_pipes = ft_count_pipes(data->xln);
 	if (!data->no_pipes && !ft_count_redirections(data->xln))
 	{
